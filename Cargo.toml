@@ -1,0 +1,28 @@
+[package]
+name = "os-error"
+version = "0.1.0"
+authors = ["FaultyRAM <explodingpsu@gmail.com>"]
+description = "An error type providing human-readable descriptions of platform-specific errors."
+repository = "https://github.com/FaultyRAM/os-error"
+readme = "README.md"
+categories = ["rust-patterns"]
+license = "(Apache-2.0 OR MIT)"
+
+[badges.appveyor]
+repository = "FaultyRAM/os-error"
+
+[badges.travis-ci]
+repository = "FaultyRAM/os-error"
+
+[badges.is-it-maintained-issue-resolution]
+repository = "FaultyRAM/os-error"
+
+[badges.is-it-maintained-open-issues]
+repository = "FaultyRAM/os-error"
+
+[badges.maintenance]
+status = "actively-developed"
+
+[dependencies.clippy]
+version = "0.0"
+optional = true
