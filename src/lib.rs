@@ -11,7 +11,7 @@
 #![cfg_attr(feature = "clippy", plugin(clippy))]
 #![cfg_attr(feature = "clippy", forbid(clippy))]
 #![cfg_attr(feature = "clippy", forbid(clippy_internal))]
-#![cfg_attr(feature = "clippy", forbid(clippy_pedantic))]
+#![cfg_attr(feature = "clippy", deny(clippy_pedantic))]
 #![cfg_attr(feature = "clippy", forbid(clippy_restrictions))]
 #![forbid(warnings)]
 #![forbid(anonymous_parameters)]
@@ -26,6 +26,18 @@
 #![deny(unused_qualifications)]
 #![forbid(unused_results)]
 #![forbid(variant_size_differences)]
+
+#[cfg(windows)]
+#[macro_use(concat_string)]
+extern crate concat_string;
+#[cfg(windows)]
+extern crate kernel32;
+#[cfg(windows)]
+extern crate winapi;
+
+#[cfg(windows)]
+#[path = "windows.rs"]
+mod imp;
 
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
@@ -43,15 +55,21 @@ pub struct OsError {
     desc: String,
 }
 
+#[inline]
+/// Returns a raw error code for the most recent platform-specific error.
+pub fn last_os_error_code() -> i32 {
+    imp::last_os_error_code()
+}
+
 impl OsError {
     /// Creates an `OsError` from the most recent platform-specific error that occurred.
-    pub fn last_os_error() -> Self {
-        unimplemented!()
+    pub fn from_last_os_error() -> Self {
+        Self::from_raw_os_error(last_os_error_code())
     }
 
     /// Creates an `OsError` from a raw platform-specific error code.
-    pub fn from_raw_os_error(_code: i32) -> Self {
-        unimplemented!()
+    pub fn from_raw_os_error(code: i32) -> Self {
+        imp::from_raw_os_error(code)
     }
 
     #[inline]
