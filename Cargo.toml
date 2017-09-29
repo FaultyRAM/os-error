@@ -5,7 +5,7 @@ authors = ["FaultyRAM <explodingpsu@gmail.com>"]
 description = "An error type providing human-readable descriptions of platform-specific errors."
 repository = "https://github.com/FaultyRAM/os-error"
 readme = "README.md"
-categories = ["rust-patterns"]
+categories = ["api-bindings", "os"]
 license = "Apache-2.0 OR MIT"
 
 [badges.appveyor]
