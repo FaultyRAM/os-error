@@ -12,7 +12,7 @@
 #![cfg_attr(feature = "clippy", forbid(clippy))]
 #![cfg_attr(feature = "clippy", forbid(clippy_internal))]
 #![cfg_attr(feature = "clippy", deny(clippy_pedantic))]
-#![cfg_attr(feature = "clippy", forbid(clippy_restrictions))]
+#![cfg_attr(feature = "clippy", deny(clippy_restrictions))]
 #![forbid(warnings)]
 #![forbid(anonymous_parameters)]
 #![forbid(box_pointers)]

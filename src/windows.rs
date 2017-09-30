@@ -42,6 +42,7 @@ fn format_message(flags: DWORD, module: LPCVOID, code: DWORD, msg: &mut [WCHAR])
 
 impl OsError {
     #[cfg_attr(feature = "clippy", allow(cast_sign_loss))]
+    #[cfg_attr(feature = "clippy", allow(indexing_slicing))]
     /// Attempts to retrieve an error description from one of the given Windows modules, before
     /// falling back to checking the system.
     ///
