@@ -27,12 +27,16 @@ status = "actively-developed"
 version = "0.0"
 optional = true
 
+[dependencies.concat-string]
+version = "1"
+
 [dependencies.os-error-code]
 git = "https://github.com/FaultyRAM/os-error-code.git"
 branch = "master"
 
-[target.'cfg(windows)'.dependencies.concat-string]
-version = "1"
+[target.'cfg(unix)'.dependencies.libc]
+version = "0.2"
+default-features = false
 
 [target.'cfg(windows)'.dependencies.winapi]
 git = "https://github.com/retep998/winapi-rs.git"
