@@ -5,7 +5,7 @@
 // http://opensource.org/licenses/MIT>, at your option. This file may not be copied, modified, or
 // distributed except according to those terms.
 
-//! Platform-specific errors.
+//! Utilities for handling and describing platform-specific errors.
 
 #![cfg_attr(feature = "clippy", feature(plugin))]
 #![cfg_attr(feature = "clippy", plugin(clippy))]
@@ -30,14 +30,13 @@
 #[cfg(windows)]
 #[macro_use(concat_string)]
 extern crate concat_string;
-#[cfg(windows)]
-extern crate kernel32;
+extern crate os_error_code;
 #[cfg(windows)]
 extern crate winapi;
 
 #[cfg(windows)]
 #[path = "windows.rs"]
-mod imp;
+mod sys;
 
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
@@ -55,21 +54,15 @@ pub struct OsError {
     desc: String,
 }
 
-#[inline]
-/// Returns a raw error code for the most recent platform-specific error.
-pub fn last_os_error_code() -> i32 {
-    imp::last_os_error_code()
-}
-
 impl OsError {
     /// Creates an `OsError` from the most recent platform-specific error that occurred.
     pub fn from_last_os_error() -> Self {
-        Self::from_raw_os_error(last_os_error_code())
+        sys::from_raw_os_error(os_error_code::get_last_error())
     }
 
     /// Creates an `OsError` from a raw platform-specific error code.
     pub fn from_raw_os_error(code: i32) -> Self {
-        imp::from_raw_os_error(code)
+        sys::from_raw_os_error(code)
     }
 
     #[inline]
