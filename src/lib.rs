@@ -27,13 +27,17 @@
 #![forbid(unused_results)]
 #![forbid(variant_size_differences)]
 
-#[cfg(windows)]
 #[macro_use(concat_string)]
 extern crate concat_string;
 extern crate os_error_code;
+#[cfg(unix)]
+extern crate libc;
 #[cfg(windows)]
 extern crate winapi;
 
+#[cfg(unix)]
+#[path = "unix.rs"]
+mod sys;
 #[cfg(windows)]
 #[path = "windows.rs"]
 mod sys;
