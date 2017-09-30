@@ -15,20 +15,20 @@ use std::os::unix::ffi::OsStrExt;
 pub fn from_raw_os_error(code: i32) -> OsError {
     let mut msg = [0; 128];
     unsafe {
-        if libc::strerror_r(code, msg.as_mut_ptr() as *mut _, msg.len()) == 0 {
-            let desc = if let Some(s) = OsStr::from_bytes(&msg).to_str() {
+        let desc = if libc::strerror_r(code, msg.as_mut_ptr() as *mut _, msg.len()) == 0 {
+            if let Some(s) = OsStr::from_bytes(&msg).to_str() {
                 s.to_owned()
             } else {
                 let ec_s = code.to_string();
                 concat_string!("OS Error ", ec_s, " (strerror_r() returned invalid UTF-8)")
-            };
-            OsError {
-                code: code,
-                desc: desc,
             }
         } else {
             let ec_s = code.to_string();
             concat_string!("OS Error ", ec_s, " (strerror_r() failed)")
+        };
+        OsError {
+            code: code,
+            desc: desc,
         }
     }
 }
