@@ -29,9 +29,9 @@
 
 #[macro_use(concat_string)]
 extern crate concat_string;
-extern crate os_error_code;
 #[cfg(unix)]
 extern crate libc;
+extern crate os_error_code;
 #[cfg(windows)]
 extern crate winapi;
 
