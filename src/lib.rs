@@ -22,6 +22,7 @@
 #![forbid(missing_docs)]
 #![forbid(trivial_casts)]
 #![forbid(trivial_numeric_casts)]
+#![forbid(unused_extern_crates)]
 #![forbid(unused_import_braces)]
 #![deny(unused_qualifications)]
 #![forbid(unused_results)]
